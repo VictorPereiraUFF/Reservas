@@ -1,5 +1,6 @@
 package reserva;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -8,6 +9,8 @@ public class Reserva {
 	private int quarto;
 	private Date entrada;
 	private Date saida;
+	
+	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");	
 	
 	public Reserva(int quarto, Date entrada, Date saida) {
 		this.quarto = quarto;
@@ -33,8 +36,7 @@ public class Reserva {
 	
 	public long duracao() {
 		long tempo = saida.getTime() - entrada.getTime();
-		TimeUnit.DAYS.convert(tempo, TimeUnit.MILLISECONDS);
-		return tempo;
+		return TimeUnit.DAYS.convert(tempo, TimeUnit.MILLISECONDS);
 	}
 	
 	public void atualizarReserva (Date entrada, Date saida) {
@@ -44,7 +46,7 @@ public class Reserva {
 
 	@Override
 	public String toString() {
-		return "Reserva [quarto=" + quarto + ", entrada=" + entrada + ", saida=" + saida + "]";
+		return "Reserva: quarto " + quarto + ", entrada em " + sdf.format(entrada) + ", saida em " + sdf.format(saida) + ", duração de " + duracao() + " noites!";
 	}
 	
 }
