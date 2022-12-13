@@ -18,8 +18,6 @@ public class Reserva {
 		this.quarto = quarto;
 		this.entrada = entrada;
 		this.saida = saida;
-		this.entradaAtualizada = entradaAtualizada;
-		this.saidaAtualizada = saidaAtualizada;
 	}
 
 	public int getQuarto() {
@@ -51,22 +49,22 @@ public class Reserva {
 		return TimeUnit.DAYS.convert(tempo, TimeUnit.MILLISECONDS);
 	}
 	
-	public String atualizarReserva (Date entrada, Date saida) {
+	public String atualizarReserva (Date entradaAtualizada, Date saidaAtualizada) {
 		if(!entradaAtualizada.before(saidaAtualizada)) {
 			return "Erro: a data de entrada deve ser anterior à data de saída!";
 		}
 		if (entradaAtualizada.equals(entrada) && saidaAtualizada.equals(saida)) {
 			return "Erro: a data atualizada é igual à data anterior!";
 		}
-		this.entrada = entrada;
-		this.saida = saida;
+		this.entradaAtualizada = entrada;
+		this.saidaAtualizada = saida;
 		
 		return null;
 	}
 
 	@Override
 	public String toString() {
-		return "Reserva: quarto " + quarto + ", entrada em " + sdf.format(entrada) + ", saida em " + sdf.format(saida) + ", duração de " + duracao() + " noites!";
+		return "Quarto " + quarto + ", entrada em " + sdf.format(entrada) + ", saida em " + sdf.format(saida) + ", duração de " + duracao() + " noites!";
 	}
 	
 }
