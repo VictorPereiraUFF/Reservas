@@ -9,50 +9,50 @@ import reserva.Reserva;
 
 public class Programa {
 
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
 		SimpleDateFormat sdf = new SimpleDateFormat ("dd/MM/yyyy");
 		
-		System.out.print("Digite o número do quarto a ser reservado: ");
-		int numeroQuarto = sc.nextInt();
-		System.out.print("Digite a data de entrada da reserva: ");
-		Date dataEntrada = sdf.parse(sc.next());
-		System.out.print("Digite a data de saída da reserva: ");
-		Date dataSaida = sdf.parse(sc.next());
-		System.out.println();
-		
-		Reserva reserva = new Reserva(numeroQuarto, dataEntrada, dataSaida);
-		
-		System.out.println("Você deseja atualizar sua reserva? ");
-		System.out.print("Digite 1 para sim e 0 para não: ");
-		int resposta = sc.nextInt();
-		
-		if (resposta == 1) {
-			System.out.print("Digite a nova data de entrada: ");
-			Date dataEntradaAtualizada = sdf.parse(sc.next());
-			System.out.print("Digite a nova data de saída: ");
-			Date dataSaidaAtualizada = sdf.parse(sc.next());
+		try {
+			System.out.print("Digite o número do quarto a ser reservado: ");
+			int numeroQuarto = sc.nextInt();
+			System.out.print("Digite a data de entrada da reserva: ");
+			Date dataEntrada = sdf.parse(sc.next());
+			System.out.print("Digite a data de saída da reserva: ");
+			Date dataSaida = sdf.parse(sc.next());
+			System.out.println();
 			
-
-			String erroReserva = reserva.atualizarReserva(dataEntradaAtualizada, dataSaidaAtualizada);
-			if (erroReserva != null) {
-				System.out.println(erroReserva);
-			}
-			else {
+			Reserva reserva = new Reserva(numeroQuarto, dataEntrada, dataSaida);
+			
+			System.out.println("Você deseja atualizar sua reserva? ");
+			System.out.print("Digite 1 para sim e 0 para não: ");
+			int resposta = sc.nextInt();
+			
+			if (resposta == 1) {
+				System.out.print("Digite a nova data de entrada: ");
+				Date dataEntradaAtualizada = sdf.parse(sc.next());
+				System.out.print("Digite a nova data de saída: ");
+				Date dataSaidaAtualizada = sdf.parse(sc.next());
+				
+	
+				reserva.atualizarReserva(dataEntradaAtualizada, dataSaidaAtualizada);
 				System.out.println("Dados da reserva atualizada: " + reserva);
+				System.out.println("Aproveite a sua estadia!");
+	
+			}
+	
+			else {
+				System.out.println("Dados da reserva: " + reserva);
 				System.out.println("Aproveite a sua estadia!");
 			}
 		}
-
-		else {
-			if(!dataSaida.after(dataEntrada)) {
-				System.out.println("Erro: a data de entrada deve ser anterior à data de saída!");
-			}
-			else {
-				System.out.println("Dados da reserva: " + reserva);
-			}
-			System.out.println("Aproveite a sua estadia!");
+		catch (ParseException e) {
+			System.out.println("Erro: data inválida!");
+		}
+		
+		catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
 		}
 		
 		sc.close();

@@ -49,17 +49,16 @@ public class Reserva {
 		return TimeUnit.DAYS.convert(tempo, TimeUnit.MILLISECONDS);
 	}
 	
-	public String atualizarReserva (Date entradaAtualizada, Date saidaAtualizada) {
+	public void atualizarReserva (Date entradaAtualizada, Date saidaAtualizada) {
 		if(!entradaAtualizada.before(saidaAtualizada)) {
-			return "Erro: a data de entrada deve ser anterior à data de saída!";
+			throw new IllegalArgumentException ("Erro: a data de entrada deve ser anterior à data de saída!");
 		}
 		if (entradaAtualizada.equals(entrada) && saidaAtualizada.equals(saida)) {
-			return "Erro: a data atualizada é igual à data anterior!";
+			throw new IllegalArgumentException ("Erro: a data atualizada é igual à data anterior!");
 		}
 		this.entradaAtualizada = entrada;
 		this.saidaAtualizada = saida;
-		
-		return null;
+
 	}
 
 	@Override
