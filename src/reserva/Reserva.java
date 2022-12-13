@@ -9,6 +9,8 @@ public class Reserva {
 	private int quarto;
 	private Date entrada;
 	private Date saida;
+	private Date entradaAtualizada;
+	private Date saidaAtualizada;
 	
 	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");	
 	
@@ -16,6 +18,8 @@ public class Reserva {
 		this.quarto = quarto;
 		this.entrada = entrada;
 		this.saida = saida;
+		this.entradaAtualizada = entradaAtualizada;
+		this.saidaAtualizada = saidaAtualizada;
 	}
 
 	public int getQuarto() {
@@ -34,14 +38,30 @@ public class Reserva {
 		return saida;
 	}
 	
+	public Date getEntradaAtualizada() {
+		return entradaAtualizada;
+	}
+
+	public Date getSaidaAtualizada() {
+		return saidaAtualizada;
+	}
+	
 	public long duracao() {
 		long tempo = saida.getTime() - entrada.getTime();
 		return TimeUnit.DAYS.convert(tempo, TimeUnit.MILLISECONDS);
 	}
 	
-	public void atualizarReserva (Date entrada, Date saida) {
+	public String atualizarReserva (Date entrada, Date saida) {
+		if(!entradaAtualizada.before(saidaAtualizada)) {
+			return "Erro: a data de entrada deve ser anterior à data de saída!";
+		}
+		if (entradaAtualizada.equals(entrada) && saidaAtualizada.equals(saida)) {
+			return "Erro: a data atualizada é igual à data anterior!";
+		}
 		this.entrada = entrada;
 		this.saida = saida;
+		
+		return null;
 	}
 
 	@Override

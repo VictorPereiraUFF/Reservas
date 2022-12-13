@@ -34,18 +34,17 @@ public class Programa {
 			System.out.print("Digite a nova data de saída: ");
 			Date dataSaidaAtualizada = sdf.parse(sc.next());
 			
-			if(!dataSaidaAtualizada.after(dataEntradaAtualizada)) {
-				System.out.println("Erro: a data de entrada deve ser anterior à data de saída!");
-			}
-			else if (dataEntradaAtualizada.equals(dataEntrada) && dataSaidaAtualizada.equals(dataSaida)) {
-				System.out.println("Erro: a data atualizada é igual à data anterior!");
+
+			String erroReserva = reserva.atualizarReserva(dataEntradaAtualizada, dataSaidaAtualizada);
+			if (erroReserva != null) {
+				System.out.println(erroReserva);
 			}
 			else {
-				Reserva reservaAtualizada = new Reserva(numeroQuarto, dataEntradaAtualizada, dataSaidaAtualizada);
-				System.out.println("Dados da reserva atualizada: " + reservaAtualizada);
+				System.out.println("Dados da reserva atualizada: " + reserva);
 				System.out.println("Aproveite a sua estadia!");
 			}
 		}
+
 		else {
 			if(!dataSaida.after(dataEntrada)) {
 				System.out.println("Erro: a data de entrada deve ser anterior à data de saída!");
