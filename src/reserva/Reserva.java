@@ -15,6 +15,9 @@ public class Reserva {
 	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");	
 	
 	public Reserva(int quarto, Date entrada, Date saida) {
+		if(!entrada.before(saida)) {
+			throw new IllegalArgumentException ("Erro: a data de entrada deve ser anterior à data de saída!");
+		}
 		this.quarto = quarto;
 		this.entrada = entrada;
 		this.saida = saida;
